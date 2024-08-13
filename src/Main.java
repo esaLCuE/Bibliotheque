@@ -17,7 +17,7 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         int choix =- 1;
-        while (choix != 8){
+        while (choix != 7){
             System.out.println("Entrez 1 pour enregistrer un nouvel abonné.");
             System.out.println("Entrez 2 pour enregistrer un nouveau livre.");
             System.out.println("Entrez 3 pour enregistrer un nouveau prêt.");
@@ -25,7 +25,7 @@ public class Main {
             System.out.println("Entrez 5 pour afficher la liste des livres.");
             System.out.println("Entrez 6 pour afficher la liste des prêts.");
             System.out.println("Entrez 7 pour quitter.");
-            while(choix<1 || choix >8){
+            while(choix<1 || choix >7){
                 choix = sc.nextInt();
                 switch (choix){
                     case 1:
@@ -47,6 +47,7 @@ public class Main {
                         Pret.afficherPrets();
                         break;
                     case 7:
+                        System.exit(0);
                         break;
                     default:
                         System.out.println("Merci de choisir une option valide.");

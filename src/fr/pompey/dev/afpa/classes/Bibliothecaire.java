@@ -3,17 +3,19 @@ package fr.pompey.dev.afpa.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bibliothecaire extends Personne {
-    public String identifiant;
+import static fr.pompey.dev.afpa.classes.Saisie.afficher;
 
-    private void setIdentifiant(){
+public class Bibliothecaire extends Personne {
+    private String identifiant;
+
+    public void setIdentifiant(){
         this.identifiant = "";
         while ((this.identifiant == null) || (this.identifiant.length()<5)) {
-            System.out.println("Entrez l'identifiant de la bibliothécaire.");
-            this.identifiant = sc.nextLine();
+            afficher("Entrez l'identifiant de la bibliothécaire.");
+            this.identifiant = Saisie.getString();
         }
     }
-    private String getIdentifiant(){
+    public String getIdentifiant(){
         return this.identifiant;
     }
 

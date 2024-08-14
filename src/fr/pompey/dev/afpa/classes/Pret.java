@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import static fr.pompey.dev.afpa.classes.Abonne.*;
 import static fr.pompey.dev.afpa.classes.Livre.*;
+import static fr.pompey.dev.afpa.classes.Saisie.afficher;
 
 public class Pret {
     private LocalDate debut;
@@ -16,21 +17,21 @@ public class Pret {
     private String aboPret;
 
     Scanner sc = new Scanner(System.in);
-    int idAbo;
-    int idLivre;
-    boolean abotrouve;
-    boolean livdispo;
-    boolean livtrouve;
+    private int idAbo;
+    private int idLivre;
+    private boolean abotrouve;
+    private boolean livdispo;
+    private boolean livtrouve;
 
-    private void setAboPret() {
+    public void setAboPret() {
         // ON ENTRE LE NOM D'UN ABONNE ET ON VERIFIE QU'IL EST BIEN INSCRIT
         boolean abotrouve = false;
         this.aboPret = "";
         while (this.aboPret == null || this.aboPret.isEmpty() || !this.aboPret.matches("^[a-zA-Z\\s]*$") || !abotrouve) {
-            System.out.println("Quel abonné souhaite emprunter (format Prénom Nom).");
-            this.aboPret = sc.nextLine();
+            afficher("Quel abonné souhaite emprunter (Prénom Nom).");
+            this.aboPret = Saisie.getString();
             if(!this.aboPret.matches("^[a-zA-Z\\s]*$")) {
-                System.out.println("Nom invalide.");
+                afficher("Nom invalide.");
             } else {
                 for (int i = 0; i < abonnes.size(); i++) {
                     if (this.aboPret.equalsIgnoreCase(abonnes.get(i))) {
@@ -40,7 +41,7 @@ public class Pret {
                     }
                 }
                 if (!abotrouve) {
-                    System.out.println("Nom inconnu dans la base de données.");
+                    afficher("Nom inconnu dans la base de données.");
                 }
             }
         }
@@ -53,16 +54,16 @@ public class Pret {
         this.livrePret = "";
         while (Objects.equals(this.livrePret, "") || this.livrePret == null ||
                 !this.livrePret.matches("^[A-Za-z0-9\\s\\-_,.;:()]+$") || !livtrouve) {
-            System.out.println("Quel livre emprunter ?");
+            afficher("Quel livre emprunter ?");
             this.livrePret = sc.nextLine();
             if (!this.livrePret.matches("^[A-Za-z0-9\\s\\-_,.;:()]+$")) {
-                System.out.println("Titre invalide.");
+                afficher("Titre invalide.");
             } else {
                 for (int i = 0; i < titres.size(); i++) {
                     if (this.livrePret.equalsIgnoreCase(titres.get(i))) {
                         livtrouve=true;
                         if (!(quantites.get(i) >0)){
-                            System.out.println("Ce titre n'est pas disponible actuellement.");
+                            afficher("Ce titre n'est pas disponible actuellement.");
                             break;
                         } else {
                             idLivre = i;
@@ -72,7 +73,7 @@ public class Pret {
                     }
                 }
                 if (!livtrouve) {
-                    System.out.println("Titre inconnu dans la base de données.");
+                    afficher("Titre inconnu dans la base de données.");
                 }
             }
         }
@@ -83,35 +84,10 @@ public class Pret {
         this.debut = inscriptions.get(idAbo).minusDays(1);
         while (this.debut.isBefore(inscriptions.get(idAbo))) {
 
-            System.out.println("Entrez l'année de début de prêt.");
-            int annee = sc.nextInt();
-            int mois = -1;
-            int jour = -1;
-            while (mois < 1 || mois > 12) {
-                System.out.println("Entrez le mois de début de prêt.");
-                mois = sc.nextInt();
-            }
-
-            int jmax;
-            if (mois == 2) {
-                if (annee % 4 != 0 || (annee % 100 == 0 && annee % 400 != 0)) {
-                    jmax = 28;
-                } else {
-                    jmax = 29;
-                }
-            } else if (mois == 4 || mois == 6 || mois == 9 || mois == 11) {
-                jmax = 30;
-            } else {
-                jmax = 31;
-            }
-            while (jour < 1 || jour > jmax) {
-                System.out.println("Entrez le jour de début de prêt.");
-                jour = sc.nextInt();
-            }
-            this.debut = LocalDate.of(annee, mois, jour);
+            this.debut = Saisie.getDate("début de prêt");
 
             if (this.debut.isBefore(inscriptions.get(idAbo))){
-                System.out.println("Date invalide : un prêt ne peut pas précéder l'inscription.");
+                afficher("Date invalide : un prêt ne peut pas précéder l'inscription.");
             }
         }
     }
@@ -120,32 +96,9 @@ public class Pret {
         // ON FIXE DATE DE FIN ET ON VERIFIE QU'ELLE EST ULTERIEURE A LA DATE DE DEBUT
         this.fin = this.debut.minusDays(1);
         while (this.fin.isBefore(this.debut)) {
-            System.out.println("Entrez l'année de fin de prêt.");
-            int annee = sc.nextInt();
-            int mois = -1;
-            int jour = -1;
-            while (mois < 1 || mois > 12) {
-                System.out.println("Entrez le mois de fin de prêt.");
-                mois = sc.nextInt();
-            }
 
-            int jmax;
-            if (mois == 2) {
-                if (annee % 4 != 0 || (annee % 100 == 0 && annee % 400 != 0)) {
-                    jmax = 28;
-                } else {
-                    jmax = 29;
-                }
-            } else if (mois == 4 || mois == 6 || mois == 9 || mois == 11) {
-                jmax = 30;
-            } else {
-                jmax = 31;
-            }
-            while (jour < 1 || jour > jmax) {
-                System.out.println("Entrez le jour de fin de prêt.");
-                jour = sc.nextInt();
-            }
-            this.fin = LocalDate.of(annee, mois, jour);
+            this.fin = Saisie.getDate("fin de prêt");
+
             if (this.fin.isBefore(this.debut)) {
                 System.out.println("La date de fin de prêt ne peut pas être antérieure à celle de début.");
             }
@@ -191,7 +144,7 @@ public class Pret {
 
     public static void afficherPrets(){
         for (String tousPret : tousPrets) {
-            System.out.println(tousPret);
+            afficher(tousPret);
         }
     }
 

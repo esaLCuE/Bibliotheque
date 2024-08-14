@@ -3,28 +3,33 @@ import java.util.Scanner;
 import java.time.*;
 import fr.pompey.dev.afpa.classes.*;
 
+import static fr.pompey.dev.afpa.classes.Saisie.afficher;
+
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Enregistrement de l'abonné.");
+        afficher("Enregistrement de l'abonné.");
         Abonne abo = new Abonne();
-        System.out.println("Enregistrement de la bibliothécaire.");
+
+        afficher("Enregistrement de la bibliothécaire.");
         Bibliothecaire bib = new Bibliothecaire();
-        System.out.println("Enregistrement du livre.");
+
+        afficher("Enregistrement du livre.");
         Livre liv = new Livre();
-        System.out.println("Enregistrement du prêt.");
+
+        afficher("Enregistrement du prêt.");
         Pret pre = new Pret();
 
         Scanner sc = new Scanner(System.in);
         int choix =- 1;
         while (choix != 7){
-            System.out.println("Entrez 1 pour enregistrer un nouvel abonné.");
-            System.out.println("Entrez 2 pour enregistrer un nouveau livre.");
-            System.out.println("Entrez 3 pour enregistrer un nouveau prêt.");
-            System.out.println("Entrez 4 pour afficher la liste des abonnés.");
-            System.out.println("Entrez 5 pour afficher la liste des livres.");
-            System.out.println("Entrez 6 pour afficher la liste des prêts.");
-            System.out.println("Entrez 7 pour quitter.");
+            afficher("Entrez 1 pour enregistrer un nouvel abonné.");
+            afficher("Entrez 2 pour enregistrer un nouveau livre.");
+            afficher("Entrez 3 pour enregistrer un nouveau prêt.");
+            afficher("Entrez 4 pour afficher la liste des abonnés.");
+            afficher("Entrez 5 pour afficher la liste des livres.");
+            afficher("Entrez 6 pour afficher la liste des prêts.");
+            afficher("Entrez 7 pour quitter.");
             while(choix<1 || choix >7){
                 choix = sc.nextInt();
                 switch (choix){
@@ -50,7 +55,7 @@ public class Main {
                         System.exit(0);
                         break;
                     default:
-                        System.out.println("Merci de choisir une option valide.");
+                        afficher("Merci de choisir une option valide.");
                 }
             }
             choix=-1;

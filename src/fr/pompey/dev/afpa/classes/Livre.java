@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+import static fr.pompey.dev.afpa.classes.Saisie.afficher;
+
 public class Livre {
     private String titre;
     private String auteur;
@@ -11,39 +13,38 @@ public class Livre {
 
     Scanner sc = new Scanner(System.in);
 
-    private void setTitre(){
+    public void setTitre(){
         this.titre="";
         while (Objects.equals(this.titre, "") || this.titre==null || !this.titre.matches("^[A-Za-z0-9\\s\\-_,.;:()]+$")){
-            System.out.println("Veuillez entrer le titre du livre.");
-            this.titre = sc.nextLine();
+            afficher("Veuillez entrer le titre du livre.");
+            this.titre = Saisie.getString();
         }
     }
-    private void setAuteur(){
+    public void setAuteur(){
         this.auteur="";
         while (Objects.equals(this.auteur, "") || this.auteur==null || !this.auteur.matches("^[a-zA-Z\\s]*$")){
-            System.out.println("Veuillez entrer l'auteur du livre.");
-            this.auteur = sc.nextLine();
+            afficher("Veuillez entrer l'auteur du livre.");
+            this.auteur = Saisie.getString();
         }
     }
-    private void setQuantite(){
+    public void setQuantite(){
         this.quantite=-1;
         while (this.quantite <1){
-            System.out.println("Combien d'exemplaires ?");
-            this.quantite = sc.nextInt();
+            afficher("Combien d'exemplaires ?");
+            this.quantite = Saisie.getInt();
             if (this.quantite < 1){
-                System.out.println("Nombre d'exemplaires invalide.");
+                afficher("Nombre d'exemplaires invalide.");
             }
         }
-        sc.nextLine();
     }
 
-    private String getTitre(){
+    public String getTitre(){
         return this.titre;
     }
-    private String getAuteur(){
+    public String getAuteur(){
         return this.auteur;
     }
-    private int getQuantite(){
+    public int getQuantite(){
         return this.quantite;
     }
 
@@ -71,7 +72,7 @@ public class Livre {
 
     public static void afficherLivres(){
         for (int i = 0; i < titres.size(); i++){
-            System.out.println(titres.get(i)+" en "+quantites.get(i)+" exemplaires.");
+            afficher(titres.get(i)+" en "+quantites.get(i)+" exemplaires.");
         }
     }
 }

@@ -10,14 +10,16 @@ public class Personne {
 
     public void setNom(){
         this.nom="";
-        while (this.nom==null || this.nom.isEmpty() || !this.nom.matches("^[a-zA-Z\\s]*$")) {
+        while (this.nom==null || this.nom.matches("\\s+") || this.nom.isEmpty() ||
+                !this.nom.matches("^[a-zA-Z\\s]*$")) {
             afficher("Entrez le nom de famille.");
             this.nom = Saisie.getString();
         }
     }
     public void setPrenom(){
         this.prenom="";
-        while (this.prenom==null || this.prenom.isEmpty() || !this.prenom.matches("^[a-zA-Z\\s]*$")) {
+        while (this.prenom==null || this.prenom.matches("\\s+") || this.prenom.isEmpty() ||
+                !this.prenom.matches("^[a-zA-Z\\s]*$")) {
             afficher("Entrez le prénom.");
             this.prenom = Saisie.getString();
         }

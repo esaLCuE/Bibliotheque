@@ -34,13 +34,13 @@ public class Main {
                 choix = sc.nextInt();
                 switch (choix){
                     case 1:
-                        abo = new Abonne();
+                        Abonne nouvelAbo;
                         break;
                     case 2:
-                        liv = new Livre();
+                        Livre nouveauLiv;
                         break;
                     case 3:
-                        pre = new Pret();
+                        Pret nouveauPre;
                         break;
                     case 4:
                         Abonne.afficherAbonnes();

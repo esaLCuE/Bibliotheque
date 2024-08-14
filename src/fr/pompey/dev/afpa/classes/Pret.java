@@ -27,7 +27,8 @@ public class Pret {
         // ON ENTRE LE NOM D'UN ABONNE ET ON VERIFIE QU'IL EST BIEN INSCRIT
         boolean abotrouve = false;
         this.aboPret = "";
-        while (this.aboPret == null || this.aboPret.isEmpty() || !this.aboPret.matches("^[a-zA-Z\\s]*$") || !abotrouve) {
+        while (this.aboPret == null || this.aboPret.isEmpty() ||  this.aboPret.matches("\\s+") ||
+                !this.aboPret.matches("^[a-zA-Z\\s]*$") || !abotrouve) {
             afficher("Quel abonné souhaite emprunter (Prénom Nom).");
             this.aboPret = Saisie.getString();
             if(!this.aboPret.matches("^[a-zA-Z\\s]*$")) {

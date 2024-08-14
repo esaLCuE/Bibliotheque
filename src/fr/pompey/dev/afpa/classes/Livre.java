@@ -15,14 +15,16 @@ public class Livre {
 
     public void setTitre(){
         this.titre="";
-        while (Objects.equals(this.titre, "") || this.titre==null || !this.titre.matches("^[A-Za-z0-9\\s\\-_,.;:()]+$")){
+        while (Objects.equals(this.titre, "") || this.titre==null || this.titre.matches("\\s+") ||
+                !this.titre.matches("^[A-Za-z0-9\\s\\-_,.;:()]+$")){
             afficher("Veuillez entrer le titre du livre.");
             this.titre = Saisie.getString();
         }
     }
     public void setAuteur(){
         this.auteur="";
-        while (Objects.equals(this.auteur, "") || this.auteur==null || !this.auteur.matches("^[a-zA-Z\\s]*$")){
+        while (Objects.equals(this.auteur, "") || this.auteur==null || this.auteur.matches("\\s+") ||
+                !this.auteur.matches("^[a-zA-Z\\s]*$")){
             afficher("Veuillez entrer l'auteur du livre.");
             this.auteur = Saisie.getString();
         }

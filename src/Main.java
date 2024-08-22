@@ -9,16 +9,16 @@ import static fr.pompey.dev.afpa.classes.Saisie.afficher;
 public class Main {
     public static void main(String[] args) {
         afficher("Enregistrement de l'abonné.");
-        Abonne abo = new Abonne();
+        Saisie.creerAbonne();
 
         afficher("Enregistrement de la bibliothécaire.");
-        Bibliothecaire bib = new Bibliothecaire();
+        Saisie.creerBibliothecaire();
 
         afficher("Enregistrement du livre.");
-        Livre liv = new Livre();
+        Saisie.creerLivre();
 
         afficher("Enregistrement du prêt.");
-        Pret pre = new Pret();
+        Saisie.creerPret();
 
         Scanner sc = new Scanner(System.in);
         int choix =- 1;
@@ -34,13 +34,13 @@ public class Main {
                 choix = sc.nextInt();
                 switch (choix){
                     case 1:
-                        Abonne nouvelAbo;
+                        Saisie.creerAbonne();
                         break;
                     case 2:
-                        Livre nouveauLiv;
+                        Saisie.creerLivre();
                         break;
                     case 3:
-                        Pret nouveauPre;
+                        Saisie.creerPret();
                         break;
                     case 4:
                         Abonne.afficherAbonnes();

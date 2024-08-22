@@ -8,20 +8,51 @@ public class Personne {
     private String nom;
     private String prenom;
 
-    public void setNom(){
-        this.nom="";
-        while (this.nom==null || this.nom.matches("\\s+") || this.nom.isEmpty() ||
-                !this.nom.matches("^[a-zA-Z\\s]*$")) {
+    public void setNom(String nom) throws NullPointerException, IllegalArgumentException {
+     /* while (nom==null || nom.matches("\\s+") || nom.isEmpty() ||
+                !nom.matches("^[a-zA-Z\\s]*$")) {
             afficher("Entrez le nom de famille.");
-            this.nom = Saisie.getString();
+            nom = Saisie.getString();
+        }*/
+        try {
+        if (nom == null) {
+            throw new NullPointerException("Erreur Systeme : valeur nulle");
         }
+
+        if (nom.isEmpty() || nom.matches("\\s+")) {
+            throw new IllegalArgumentException("Merci de saisir un nom");
+        }
+
+        if (!nom.matches("^[a-zA-Z\\s-]*$")) {
+            throw new IllegalArgumentException("Merci de saisir un nom valide");
+        }
+            this.nom=nom;
+        } catch (Exception e) {
+            afficher(e.getMessage());
+        }
+
     }
-    public void setPrenom(){
-        this.prenom="";
-        while (this.prenom==null || this.prenom.matches("\\s+") || this.prenom.isEmpty() ||
-                !this.prenom.matches("^[a-zA-Z\\s]*$")) {
+    public void setPrenom(String prenom){
+    /*  while (prenom==null || prenom.matches("\\s+") || prenom.isEmpty() ||
+                !prenom.matches("^[a-zA-Z\\s]*$")) {
             afficher("Entrez le prénom.");
-            this.prenom = Saisie.getString();
+            prenom = Saisie.getString();
+        } */
+        try {
+            if (prenom == null) {
+                throw new NullPointerException("Erreur Systeme : valeur nulle");
+            }
+
+            if (prenom.isEmpty() || prenom.matches("\\s+")) {
+                throw new IllegalArgumentException("Merci de saisir un prénom");
+            }
+
+            if (!prenom.matches("^[a-zA-Z\\s-]*$")) {
+                throw new IllegalArgumentException("Merci de saisir un prénom valide");
+            }
+            this.prenom = prenom;
+        } catch (Exception e) {
+            afficher(e.getMessage());
         }
     }
 
@@ -32,8 +63,8 @@ public class Personne {
         return this.prenom;
     }
 
-    public Personne() {
-        setNom();
-        setPrenom();
+    public Personne(String nom, String prenom) throws NullPointerException, IllegalArgumentException  {
+        setNom(nom);
+        setPrenom(prenom);
     }
 }

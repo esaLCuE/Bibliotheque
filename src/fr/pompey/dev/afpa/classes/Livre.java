@@ -45,10 +45,10 @@ public class Livre {
             throw new NullPointerException("Erreur Systeme : valeur nulle");
         }
         if (auteur.isEmpty() || auteur.matches("\\s+")) {
-            throw new IllegalArgumentException("Merci de saisir un auteur");
+            throw new InputMismatchException("Merci de saisir un auteur");
         }
-        if (!auteur.matches("^[a-zA-Z\\\\s]*$")) {
-            throw new IllegalArgumentException("Merci de saisir un auteur valide");
+        if (!auteur.matches("^[a-zA-Z\\s-]*$")) {
+            throw new InputMismatchException("Merci de saisir un auteur valide");
         }
         try {
             this.auteur=auteur;

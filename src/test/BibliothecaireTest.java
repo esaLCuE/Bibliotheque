@@ -2,22 +2,20 @@ package test;
 
 import fr.pompey.dev.afpa.classes.Bibliothecaire;
 import fr.pompey.dev.afpa.classes.Personne;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BibliothecaireTest extends PersonneTest {
+class BibliothecaireTest {
 
     private static Bibliothecaire bibliothecairePourTest;
     @BeforeEach
     void setUp() {
-        bibliothecairePourTest = new Bibliothecaire("Fujimi","Aika","jemlépoiçon");
+        bibliothecairePourTest = new Bibliothecaire("Nombiblio","Prenombiblio","identifiantbiblio");
     }
 
-    @AfterEach
-    void tearDown() {
+    @AfterAll
+    static void tearDown() {
         bibliothecairePourTest = null;
     }
 

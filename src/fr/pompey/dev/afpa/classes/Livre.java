@@ -24,7 +24,7 @@ public class Livre {
         if (titre.isEmpty() || titre.matches("\\s+")) {
             throw new InputMismatchException("Merci de saisir un titre");
         }
-        if (!titre.matches("^[A-Za-z0-9\\s\\-_,.;:()]+$")) {
+        if (!titre.matches("^[A-Za-zà-üÀ-Ü0-9\\s\\-_,.;:()]+$")) {
             throw new InputMismatchException("Merci de saisir un titre valide");
         }
         try {
@@ -47,7 +47,7 @@ public class Livre {
         if (auteur.isEmpty() || auteur.matches("\\s+")) {
             throw new InputMismatchException("Merci de saisir un auteur");
         }
-        if (!auteur.matches("^[a-zA-Z\\s-]*$")) {
+        if (!auteur.matches("^[a-zA-Zà-üÀ-Ü\\s-]*$")) {
             throw new InputMismatchException("Merci de saisir un auteur valide");
         }
         try {

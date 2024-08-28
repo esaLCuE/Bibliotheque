@@ -7,20 +7,28 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AbonneTest extends PersonneTest {
+class AbonneTest {
 
     private static Abonne abonnePourTest;
+    static List<String> testAbonnes = new ArrayList<>();
+    static List<String> testEmails = new ArrayList<>();
+    static List<LocalDate> testInscriptions = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
-        abonnePourTest = new Abonne("Paga","Al", "jsuisunlama@perou.com", LocalDate.of(2018,12,6));
+        abonnePourTest = new Abonne("Nom","Prenom", "adressemail@jsp.com", LocalDate.of(2018,12,6));
+        testAbonnes.add(abonnePourTest.getPrenom()+" "+abonnePourTest.getNom());
+        testEmails.add(abonnePourTest.getEmail());
+        testInscriptions.add(abonnePourTest.getInscription());
     }
 
-    @AfterEach
-    void tearDown() {
+    @AfterAll
+    static void tearDown() {
         abonnePourTest = null;
     }
 

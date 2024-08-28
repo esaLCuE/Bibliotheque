@@ -171,8 +171,15 @@ public class Pret {
         }
     }
 
+    public String getNomAboPret(){
+        return this.aboPret;
+    }
     public int getAboPret(){
         return this.idAbo;
+    }
+
+    public String getNomLivrePret(){
+        return livrePret;
     }
     public int getLivrePret(){
         return this.idLivre;

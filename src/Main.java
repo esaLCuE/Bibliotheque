@@ -21,7 +21,7 @@ public class Main {
         Saisie.creerPret();
 
         Scanner sc = new Scanner(System.in);
-        int choix =- 1;
+        int choix = -1;
         while (choix != 7){
             afficher("Entrez 1 pour enregistrer un nouvel abonné.");
             afficher("Entrez 2 pour enregistrer un nouveau livre.");
@@ -58,7 +58,7 @@ public class Main {
                         afficher("Merci de choisir une option valide.");
                 }
             }
-            choix=-1;
+            choix = -1;
 
         }
     }

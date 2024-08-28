@@ -4,6 +4,10 @@ import fr.pompey.dev.afpa.classes.Livre;
 import org.junit.Assert;
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.*;
+
 import static fr.pompey.dev.afpa.classes.Saisie.afficher;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,14 +15,22 @@ class LivreTest {
 
     private static Livre livrePourTest;
 
+    static List<String> testTitres = new ArrayList<>();
+    static List<String> testAuteurs = new ArrayList<>();
+    static List<Integer> testQuantites = new ArrayList<>();
+
     @BeforeEach
     void setUp() {
         try {
             livrePourTest = new Livre("testTit", "testAut", 5);
+            testTitres.add(livrePourTest.getTitre());
+            testAuteurs.add(livrePourTest.getAuteur());
+            testQuantites.add(livrePourTest.getQuantite());
         } catch (Exception e) {
             afficher(e.getMessage());
         }
     }
+
 
     @AfterAll
     static void tearDown() {

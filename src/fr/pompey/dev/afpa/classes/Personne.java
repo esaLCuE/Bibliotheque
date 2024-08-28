@@ -15,17 +15,20 @@ public class Personne {
             nom = Saisie.getString();
         }*/
         try {
-        if (nom == null) {
-            throw new NullPointerException("Erreur Systeme : valeur nulle");
-        }
+            if (nom == null) {
+               throw new NullPointerException("Erreur Systeme : valeur nulle");
+            }
 
-        if (nom.isEmpty() || nom.matches("\\s+")) {
-            throw new IllegalArgumentException("Merci de saisir un nom");
-        }
+            if (nom.isEmpty() || nom.matches("\\s+")) {
+               this.nom=null;
+                throw new IllegalArgumentException("Merci de saisir un nom");
+            }
 
-        if (!nom.matches("^[a-zA-Z\\s-]*$")) {
-            throw new IllegalArgumentException("Merci de saisir un nom valide");
-        }
+            if (!nom.matches("^[a-zA-Zà-üÀ-Ü\\s-]*$")) {
+                this.nom=null;
+                throw new IllegalArgumentException("Merci de saisir un nom valide");
+            }
+
             this.nom=nom;
         } catch (Exception e) {
             afficher(e.getMessage());
@@ -44,12 +47,15 @@ public class Personne {
             }
 
             if (prenom.isEmpty() || prenom.matches("\\s+")) {
+                this.prenom = null;
                 throw new IllegalArgumentException("Merci de saisir un prénom");
             }
 
-            if (!prenom.matches("^[a-zA-Z\\s-]*$")) {
+            if (!prenom.matches("^[a-zA-Zà-üÀ-Ü\\s-]*$")) {
+                this.prenom=null;
                 throw new IllegalArgumentException("Merci de saisir un prénom valide");
             }
+
             this.prenom = prenom;
         } catch (Exception e) {
             afficher(e.getMessage());

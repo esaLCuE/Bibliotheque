@@ -7,7 +7,7 @@ import static fr.pompey.dev.afpa.classes.Saisie.afficher;
 
 public class Abonne extends Personne {
     private String email;
-    private LocalDate inscription;
+    LocalDate inscription;
     Scanner sc = new Scanner(System.in);
 
     public void setEmail(String email){
@@ -57,23 +57,19 @@ public class Abonne extends Personne {
         return this.inscription;
     }
 
-    static List<String> abonnes = new ArrayList<>();
-    static List<String> emails = new ArrayList<>();
-    static List<LocalDate> inscriptions = new ArrayList<>();
+    public static List<Abonne> abonnes = new ArrayList<>();
 
     public Abonne(String nom, String prenom, String email, LocalDate inscription)
             throws  NullPointerException, IllegalArgumentException {
         super(nom, prenom);
         setEmail(email);
         setInscription(inscription);
-        abonnes.add(getPrenom()+" "+getNom());
-        emails.add(getEmail());
-        inscriptions.add(getInscription());
+        abonnes.add(new Abonne(nom, prenom, email, inscription));
     }
 
     public static void afficherAbonnes(){
-        for (String abonne : abonnes) {
-            afficher(abonne);
+        for (int i = 0; i < abonnes.size(); i++) {
+            afficher(abonnes.get(i).toString());
         }
     }
 }

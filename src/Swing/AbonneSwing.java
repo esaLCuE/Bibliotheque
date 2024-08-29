@@ -3,9 +3,13 @@ package Swing;
 import fr.pompey.dev.afpa.classes.Abonne;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static fr.pompey.dev.afpa.classes.Saisie.afficher;
 import static javax.swing.JOptionPane.showConfirmDialog;
 
 public class AbonneSwing extends JFrame {
@@ -15,14 +19,11 @@ public class AbonneSwing extends JFrame {
     private JComboBox sexeComboBox;
     private JButton annulerButton;
     private JButton confirmerButton;
-    private JTextArea entrezNomArea;
-    private JTextArea entrezPrenomArea;
-    private JTextArea entrezEmailArea;
-    private JTextArea entrezSexeComboBox;
-    private JTextArea abonneArea;
     private JPanel contentPane;
+    private JFrame appelant;
 
-    public AbonneSwing() {
+    public AbonneSwing(JFrame frame) {
+        this.appelant = frame;
 
         setTitle("Création d'un abonné");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -31,7 +32,25 @@ public class AbonneSwing extends JFrame {
 
         setLocationRelativeTo(null);
 
+        confirmerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveChanges();
+            }
+        });
 
+        annulerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cancelChanges();
+            }
+        });
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                cancelChanges();
+            }
+        });
 
     }
 
@@ -40,12 +59,13 @@ public class AbonneSwing extends JFrame {
         // Faire les exceptions quand l'import fonctionnera
 
         Abonne abo = new Abonne(nomField.getText(), prenomField.getText(), emailField.getText(), LocalDate.now());
+
         // AJOUTER LE SEXE PLUS TARD
         // String sexeSwi = Objects.requireNonNull(sexeComboBox.getSelectedItem()).toString();
 
         //Faire un Abonnes.addAbonne(abo), mais pour ça doit changer le fonctionnement des listes actuelles
 
-        showConfirmDialog(this, "Information", "Abonné ajouté", JOptionPane.OK_CANCEL_OPTION);
+        showConfirmDialog(this, "Abonné ajouté", "Information", JOptionPane.OK_CANCEL_OPTION);
 
         /*
         String nomSwi = nomField.getText();
@@ -58,10 +78,17 @@ public class AbonneSwing extends JFrame {
         sexeComboBox.setSelectedItem(0);
         */
 
+        afficher(nomField.getText());
+        afficher(prenomField.getText());
+        afficher(emailField.getText());
+        afficher(LocalDate.now().toString());
+
         this.dispose();
+        appelant.setVisible(true);
     }
 
     private void cancelChanges(){
         this.dispose();
+        appelant.setVisible(true);
     }
 }

@@ -4,9 +4,9 @@ import java.util.*;
 import static fr.pompey.dev.afpa.classes.Saisie.afficher;
 
 public class Livre {
-    private String titre;
-    private String auteur;
-    private int quantite;
+    String titre;
+    String auteur;
+    int quantite;
 
     Scanner sc = new Scanner(System.in);
 
@@ -86,31 +86,27 @@ public class Livre {
         return this.quantite;
     }
 
-    static List<String> titres = new ArrayList<>();
-    static List<String> auteurs = new ArrayList<>();
-    static List<Integer> quantites = new ArrayList<>();
+    static List<Livre> livres = new ArrayList<>();
 
     public Livre(String titre, String auteur, int quantite) throws NullPointerException, IllegalArgumentException {
         setTitre(titre);
         setAuteur(auteur);
         setQuantite(quantite);
         boolean dejaPres=false;
-        for (int i = 0; i < titres.size(); i++){
-            if ( (titres.get(i).equals(this.titre)) && (auteurs.get(i).equals(this.auteur)) ){
-                quantites.set(i, quantites.get(i)+this.quantite);
+        for (int i = 0; i < livres.size(); i++){
+            if ( (livres.get(i).titre.equals(this.titre)) && (livres.get(i).auteur.equals(this.auteur)) ){
+                livres.get(i).quantite += this.quantite;
                 dejaPres=true;
             }
         }
         if (!dejaPres) {
-            titres.add(getTitre());
-            auteurs.add(getAuteur());
-            quantites.add(getQuantite());
+            livres.add(new Livre(titre, auteur, quantite));
         }
     }
 
     public static void afficherLivres(){
-        for (int i = 0; i < titres.size(); i++){
-            afficher(titres.get(i)+" en "+quantites.get(i)+" exemplaires.");
+        for (int i = 0; i < livres.size(); i++){
+            afficher(livres.get(i).titre + " de " + livres.get(i).auteur + " en " + livres.get(i).quantite + " exemplaires.");
         }
     }
 }

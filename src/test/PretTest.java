@@ -19,7 +19,7 @@ class PretTest {
 
     @BeforeAll
     static void setUp() {
-        testPourPret = new Pret("Prénom Nom", "TitreLivre", LocalDate.of(2020,2,20),
+        testPourPret = new Pret("Prénom Nom", "TitreLivre", "Auteur Livre", LocalDate.of(2020,2,20),
                 LocalDate.of(2024,2,20));
     }
 

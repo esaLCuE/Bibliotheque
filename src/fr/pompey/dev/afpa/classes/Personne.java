@@ -9,23 +9,21 @@ public class Personne {
     private String prenom;
 
     public void setNom(String nom) throws NullPointerException, IllegalArgumentException {
-     /* while (nom==null || nom.matches("\\s+") || nom.isEmpty() ||
+        /* while (nom==null || nom.matches("\\s+") || nom.isEmpty() ||
                 !nom.matches("^[a-zA-Z\\s]*$")) {
             afficher("Entrez le nom de famille.");
             nom = Saisie.getString();
         }*/
         try {
             if (nom == null) {
-               throw new NullPointerException("Erreur Systeme : valeur nulle");
+                throw new NullPointerException("Erreur Systeme : valeur nulle");
             }
 
             if (nom.isEmpty() || nom.matches("\\s+")) {
-               this.nom=null;
                 throw new IllegalArgumentException("Merci de saisir un nom");
             }
 
             if (!nom.matches("^[a-zA-Zà-üÀ-Ü\\s-]*$")) {
-                this.nom=null;
                 throw new IllegalArgumentException("Merci de saisir un nom valide");
             }
 

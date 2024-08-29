@@ -13,21 +13,23 @@ public class LivreSwing extends JFrame {
     private JTextField titreField;
     private JTextField auteurField;
     private JTextField parutionField;
-    private JTextArea entrezTitreArea;
-    private JTextArea entrezAuteurArea;
-    private JTextArea entrezParutionArea;
-    private JTextArea entrezLeNombreDTextArea;
+    private JLabel entrezTitreArea;
+    private JLabel entrezAuteurArea;
+    private JLabel entrezParutionArea;
+    private JLabel entrezLeNombreDLabel;
     private JButton annulerButton;
     private JButton confirmerButton;
-    private JTextArea livreArea;
+    private JLabel livreArea;
     private JTextField quantiteField;
     private JPanel contentPane;
+    private JFrame appelant;
 
-    public LivreSwing() {
+    public LivreSwing(JFrame frame) {
+        this.appelant = frame;
 
-        this.setTitle("jsp");
+        this.setTitle("Création d'un livre");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setContentPane(contentPane); //JE L'AI MIS EN NOM DU JPANEL MAIS JSP SI C'EST CA OU PAS
+        setContentPane(contentPane); //Je l'ai mis en nom du JPanel mais jsp si c'est ça
         pack();
 
         setLocationRelativeTo(null);
@@ -47,18 +49,24 @@ public class LivreSwing extends JFrame {
                 cancelChanges();
             }
         });
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                cancelChanges();
+            }
+        });
     }
 
     private void saveChanges() {
 
         //Il faudra ajouter les exceptions, ici l'import ne fonctionne pas
 
-        Livre liv = new Livre(titreField.getText(), auteurField.getText(), Integer.parseInt(parutionField.getText()));
-
-        //paramètres au pif, juste pour essayer
-        showConfirmDialog(this, "Information", "Livre ajouté", JOptionPane.OK_CANCEL_OPTION);
+        Livre liv = new Livre(titreField.getText(), auteurField.getText(), Integer.parseInt(quantiteField.getText()));
 
         //Faire un Livres.addLivre(liv), mais pour ça doit changer le fonctionnement des listes actuelles
+
+        //paramètres au pif, juste pour essayer
+        showConfirmDialog(this, "Livre ajouté", "Information", JOptionPane.OK_CANCEL_OPTION);
 
         /*
         auteurField.setText("");
@@ -67,9 +75,11 @@ public class LivreSwing extends JFrame {
         */
 
         this.dispose();
+        appelant.setVisible(true);
     }
 
     private void cancelChanges() {
         this.dispose();
+        appelant.setVisible(true);
     }
 }

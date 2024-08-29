@@ -151,10 +151,11 @@ public class Saisie {
                 String aboPret = getString();
                 afficher("Quel livre emprunter ?");
                 String livrePret = getString();
+                String autPret = getString();
                 LocalDate debutPret = getDate("debut de prêt");
                 LocalDate finPret = getDate("fin de prêt");
 
-                pre = new Pret(aboPret, livrePret, debutPret, finPret);
+                pre = new Pret(aboPret, livrePret, autPret, debutPret, finPret);
                 if (pre.getAboPret()==-1 || pre.getLivrePret()==-1 || pre.getDebut()==null || pre.getFin()==null){
                     throw new InputMismatchException();
                 }

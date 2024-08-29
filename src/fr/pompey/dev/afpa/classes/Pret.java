@@ -3,7 +3,6 @@ package fr.pompey.dev.afpa.classes;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 import static fr.pompey.dev.afpa.classes.Abonne.*;
@@ -15,6 +14,7 @@ public class Pret {
     private LocalDate finPret;
     private String livrePret;
     private String aboPret;
+    private String autPret;
 
     Scanner sc = new Scanner(System.in);
     private int idAbo;
@@ -56,7 +56,7 @@ public class Pret {
             //ON RECUPERE L'ID DE L'ABONNE
             if (abotrouve) {
                 for (int i = 0; i < abonnes.size(); i++) {
-                    if (aboPret.equalsIgnoreCase(abonnes.get(i))) {
+                    if (aboPret.equalsIgnoreCase((abonnes.get(i).getPrenom())+" "+abonnes.get(i).getNom())) {
                         idAbo = i;
                         break;
                     }
@@ -101,19 +101,17 @@ public class Pret {
         }
      */
         try {
-            if (!Livre.titres.contains(livrePret)) {
-                throw new IllegalArgumentException("Titre inconnu dans la base de données.");
-            } else {
-                for (int i = 0; i < titres.size(); i++) {
-                    if (livrePret.equalsIgnoreCase(titres.get(i))) {
-                        if (!(quantites.get(i) > 0)) {
-                            throw new IllegalArgumentException("Ce titre n'est pas disponible actuellement.");
-                        } else {
-                            idLivre = i;
-                            livdispo = true;
-                            break;
-                        }
+            for (int i = 0; i < livres.size(); i++) {
+                if (livrePret.equalsIgnoreCase(livres.get(i).titre)) {
+                    if (!(livres.get(i).quantite > 0)) {
+                        throw new IllegalArgumentException("Ce titre n'est pas disponible actuellement.");
+                    } else {
+                        idLivre = i;
+                        livdispo = true;
+                        break;
                     }
+                } else if (i==livres.size()-1) {
+                    throw new IllegalArgumentException("Titre inconnu dans la base de données.");
                 }
             }
             this.livrePret = livrePret;
@@ -136,7 +134,7 @@ public class Pret {
         }
      */
         try {
-            if (debutPret.isBefore(inscriptions.get(idAbo))) {
+            if (debutPret.isBefore(abonnes.get(idAbo).inscription)) {
                 throw new IllegalArgumentException("Erreur : un prêt ne peux pas précéder l'inscription.");
             }
             this.debutPret = debutPret;
@@ -192,33 +190,39 @@ public class Pret {
         return this.finPret;
     }
 
+    static List<Pret> prets = new ArrayList<>();
     static List<Integer> idAbos = new ArrayList<>();
     static List<Integer> idLivres = new ArrayList<>();
     static List<LocalDate> debuts = new ArrayList<>();
     static List<LocalDate> fins = new ArrayList<>();
     static List<String> tousPrets = new ArrayList<>();
 
-    public Pret(String aboPret, String livrePret, LocalDate debutPret, LocalDate finPret)
+    public Pret(String aboPret, String livrePret, String autPret, LocalDate debutPret, LocalDate finPret)
             throws NullPointerException, IllegalArgumentException {
         setAboPret(aboPret);
         setLivrePret(livrePret);
         setDebut(debutPret);
         setFin(finPret);
         if (livdispo && abotrouve && !dateImpos) {
+
             idAbos.add(getAboPret());
             idLivres.add(getLivrePret());
-            quantites.set(idLivre, quantites.get(idLivre) - 1);
+            livres.get(idLivre).quantite-=1;
             debuts.add(getDebut());
             fins.add(getFin());
-            tousPrets.add(titres.get(idLivre) + " a été emprunté le " + debuts.getLast() + " par " + abonnes.get(idAbo)
-                    + " et sera rendu d'ici au " + fins.getLast());
+
+            prets.add(new Pret (aboPret, livrePret, autPret, debutPret, finPret));
+
+            tousPrets.add(livrePret + " de " + livres.get(idLivre).auteur + " a été emprunté le " + debutPret + " par " + aboPret
+                    + " et devra être rendu le " + finPret);
             afficher(tousPrets.getLast());
         }
     }
 
     public static void afficherPrets(){
-        for (String tousPret : tousPrets) {
-            afficher(tousPret);
+        for (int i=0; i< livres.size(); i++) {
+            afficher(prets.get(i).livrePret + " de " + prets.get(i).autPret + " a été emprunté le " + prets.get(i).debutPret
+                    + " par " + prets.get(i).aboPret + " et devra être rendu le " + prets.get(i).finPret);
         }
     }
 

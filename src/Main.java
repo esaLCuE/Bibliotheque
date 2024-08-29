@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.*;
+
+import Swing.AbonneSwing;
+import Swing.MenuSwing;
 import fr.pompey.dev.afpa.classes.*;
 
 import static fr.pompey.dev.afpa.classes.Saisie.afficher;
@@ -8,6 +11,7 @@ import static fr.pompey.dev.afpa.classes.Saisie.afficher;
 
 public class Main {
     public static void main(String[] args) {
+        /*
         afficher("Enregistrement de l'abonné.");
         Saisie.creerAbonne();
 
@@ -61,5 +65,8 @@ public class Main {
             choix = -1;
 
         }
+
+         */
+        MenuSwing menu = new MenuSwing();
     }
 }

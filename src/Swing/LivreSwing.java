@@ -5,7 +5,10 @@ import fr.pompey.dev.afpa.classes.Livre;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
 
+import static fr.pompey.dev.afpa.classes.Livre.livres;
+import static fr.pompey.dev.afpa.classes.Saisie.afficher;
 import static javax.swing.JOptionPane.showConfirmDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -59,20 +62,25 @@ public class LivreSwing extends JFrame {
 
     private void saveChanges() {
 
-        //Il faudra ajouter les exceptions, ici l'import ne fonctionne pas
+        try {
+            Livre liv = new Livre(titreField.getText(), auteurField.getText(), Integer.parseInt(quantiteField.getText()));
 
-        Livre liv = new Livre(titreField.getText(), auteurField.getText(), Integer.parseInt(quantiteField.getText()));
-
-        //Faire un Livres.addLivre(liv), mais pour ça doit changer le fonctionnement des listes actuelles
-
-        //paramètres au pif, juste pour essayer
-        showConfirmDialog(this, "Livre ajouté", "Information", JOptionPane.OK_CANCEL_OPTION);
-
-        /*
-        auteurField.setText("");
-        titreField.setText("");
-        parutionField.setText("");
-        */
+            boolean dejaPres = false;
+            for (int i = 0; i < livres.size(); i++) {
+                if ((livres.get(i).getTitre().equals(titreField.getText())) && (livres.get(i).getAuteur().equals(auteurField.getText()))) {
+                    Livre.augmenterQtt(i, Integer.parseInt(quantiteField.getText()));
+                    dejaPres = true;
+                }
+            }
+            if (!dejaPres) {
+                livres.add(liv);
+            }
+            showConfirmDialog(this, "Livre ajouté", "Information", JOptionPane.OK_CANCEL_OPTION);
+        } catch (InputMismatchException | NullPointerException e) {
+            afficher(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            afficher("Valeur numérique invalide.");
+        }
 
         this.dispose();
         appelant.setVisible(true);

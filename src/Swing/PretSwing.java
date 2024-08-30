@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
+import static fr.pompey.dev.afpa.classes.Pret.prets;
 import static javax.swing.JOptionPane.showConfirmDialog;
 
 public class PretSwing extends JFrame {
@@ -58,7 +59,7 @@ public class PretSwing extends JFrame {
         Pret pre = new Pret(aboPretField.getText(), titPretField.getText(), autPretField.getText(), LocalDate.now(),
                 LocalDate.now().plusDays(7));
 
-        //Prets.addPret(pre);
+        prets.add(pre);
 
         showConfirmDialog(this, "Prêt enregistré", "Information", JOptionPane.OK_CANCEL_OPTION);
 

@@ -9,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static fr.pompey.dev.afpa.classes.Abonne.abonnes;
 import static fr.pompey.dev.afpa.classes.Saisie.afficher;
 import static javax.swing.JOptionPane.showConfirmDialog;
 
@@ -58,7 +59,8 @@ public class AbonneSwing extends JFrame {
 
         // Faire les exceptions quand l'import fonctionnera
 
-        Abonne abo = new Abonne(nomField.getText(), prenomField.getText(), emailField.getText(), LocalDate.now());
+        Abonne abo = new Abonne(prenomField.getText(), nomField.getText(), emailField.getText(), LocalDate.now());
+        abonnes.add(abo);
 
         // AJOUTER LE SEXE PLUS TARD
         // String sexeSwi = Objects.requireNonNull(sexeComboBox.getSelectedItem()).toString();
@@ -78,8 +80,7 @@ public class AbonneSwing extends JFrame {
         sexeComboBox.setSelectedItem(0);
         */
 
-        afficher(nomField.getText());
-        afficher(prenomField.getText());
+        afficher(prenomField.getText()+" "+nomField.getText());
         afficher(emailField.getText());
         afficher(LocalDate.now().toString());
 

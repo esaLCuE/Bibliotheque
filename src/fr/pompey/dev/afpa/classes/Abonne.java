@@ -59,17 +59,20 @@ public class Abonne extends Personne {
 
     public static List<Abonne> abonnes = new ArrayList<>();
 
-    public Abonne(String nom, String prenom, String email, LocalDate inscription)
+    public Abonne(String prenom, String nom, String email, LocalDate inscription)
             throws  NullPointerException, IllegalArgumentException {
         super(nom, prenom);
         setEmail(email);
         setInscription(inscription);
-        abonnes.add(new Abonne(nom, prenom, email, inscription));
+        // à supprimer : abonnes.add(new Abonne(nom, prenom, email, inscription));
     }
 
     public static void afficherAbonnes(){
         for (int i = 0; i < abonnes.size(); i++) {
-            afficher(abonnes.get(i).toString());
+            afficher(abonnes.get(i).getPrenom()+" "+abonnes.get(i).getNom());
+            afficher(abonnes.get(i).getEmail());
+            afficher(abonnes.get(i).getInscription().toString());
         }
+        afficher("---------------");
     }
 }

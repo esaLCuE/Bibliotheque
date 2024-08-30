@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static fr.pompey.dev.afpa.classes.Abonne.abonnes;
 import static fr.pompey.dev.afpa.classes.Abonne.afficherAbonnes;
 import static fr.pompey.dev.afpa.classes.Livre.afficherLivres;
 import static fr.pompey.dev.afpa.classes.Pret.afficherPrets;
@@ -86,7 +87,6 @@ public class MenuSwing extends JFrame {
     private void creerAbonneSwi() {
         AbonneSwing aboSwing = new AbonneSwing(this);
         // ICI ET AILLEURS REPARER CA. INTEGRER CORRECTEMENT LES NOUVEAUX ABONNES/LIVRES/PRETS A LEURS LISTES
-        abonnes.add(aboSwing);
         aboSwing.setVisible(true);
     }
     private void creerLivreSwi() {

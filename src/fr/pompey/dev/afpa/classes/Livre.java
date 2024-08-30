@@ -10,7 +10,7 @@ public class Livre {
 
     Scanner sc = new Scanner(System.in);
 
-    public void setTitre(String titre){
+    public void setTitre(String titre) throws NullPointerException, InputMismatchException {
     /*  this.titre="";
         while (Objects.equals(this.titre, "") || this.titre==null || this.titre.matches("\\s+") ||
                 !this.titre.matches("^[A-Za-z0-9\\s\\-_,.;:()]+$")){
@@ -19,21 +19,17 @@ public class Livre {
         }
      */
         if (titre == null) {
-            throw new NullPointerException("Erreur Systeme : valeur nulle");
+            throw new NullPointerException("Merci de saisir un titre valide.");
         }
         if (titre.isEmpty() || titre.matches("\\s+")) {
-            throw new InputMismatchException("Merci de saisir un titre");
+            throw new InputMismatchException("Merci de saisir un titre valide.");
         }
         if (!titre.matches("^[A-Za-zà-üÀ-Ü0-9\\s\\-_,.;:()]+$")) {
             throw new InputMismatchException("Merci de saisir un titre valide");
         }
-        try {
-            this.titre=titre;
-        } catch (Exception e) {
-            afficher(e.getMessage());
-        }
+        this.titre=titre;
     }
-    public void setAuteur(String auteur){
+    public void setAuteur(String auteur) throws InputMismatchException, NullPointerException {
     /*    this.auteur="";
         while (Objects.equals(this.auteur, "") || this.auteur==null || this.auteur.matches("\\s+") ||
                 !this.auteur.matches("^[a-zA-Z\\s]*$")){
@@ -42,21 +38,17 @@ public class Livre {
         }
      */
         if (auteur == null) {
-            throw new NullPointerException("Erreur Systeme : valeur nulle");
+            throw new NullPointerException("Merci de saisir un auteur valide.");
         }
         if (auteur.isEmpty() || auteur.matches("\\s+")) {
-            throw new InputMismatchException("Merci de saisir un auteur");
+            throw new InputMismatchException("Merci de saisir un auteur valide.");
         }
         if (!auteur.matches("^[a-zA-Zà-üÀ-Ü\\s-]*$")) {
-            throw new InputMismatchException("Merci de saisir un auteur valide");
+            throw new InputMismatchException("Merci de saisir un auteur valide.");
         }
-        try {
-            this.auteur=auteur;
-        } catch (Exception e) {
-            afficher(e.getMessage());
-        }
+        this.auteur=auteur;
     }
-    public void setQuantite(int quantite){
+    public void setQuantite(int quantite) throws IllegalArgumentException, InputMismatchException {
     /*    this.quantite=-1;
         while (this.quantite <1){
             afficher("Combien d'exemplaires ?");
@@ -67,13 +59,10 @@ public class Livre {
         }
      */
         if (quantite < 0) {
-            throw new InputMismatchException("Merci de saisir un quantité positive");
+            throw new InputMismatchException("Merci de saisir un quantité valide de livres.");
         }
-        try {
-            this.quantite=quantite;
-        } catch (Exception e) {
-            afficher(e.getMessage());
-        }
+
+        this.quantite=quantite;
     }
 
     public String getTitre(){
@@ -86,27 +75,22 @@ public class Livre {
         return this.quantite;
     }
 
-    static List<Livre> livres = new ArrayList<>();
+    public static List<Livre> livres = new ArrayList<>();
 
-    public Livre(String titre, String auteur, int quantite) throws NullPointerException, IllegalArgumentException {
+    public Livre(String titre, String auteur, int quantite) throws NullPointerException, IllegalArgumentException, InputMismatchException {
         setTitre(titre);
         setAuteur(auteur);
         setQuantite(quantite);
-        boolean dejaPres=false;
-        for (int i = 0; i < livres.size(); i++){
-            if ( (livres.get(i).titre.equals(this.titre)) && (livres.get(i).auteur.equals(this.auteur)) ){
-                livres.get(i).quantite += this.quantite;
-                dejaPres=true;
-            }
-        }
-        if (!dejaPres) {
-            livres.add(new Livre(titre, auteur, quantite));
-        }
+    }
+
+    public static void augmenterQtt(int idL, int ajoutL){
+        livres.get(idL).quantite += ajoutL;
     }
 
     public static void afficherLivres(){
         for (int i = 0; i < livres.size(); i++){
             afficher(livres.get(i).titre + " de " + livres.get(i).auteur + " en " + livres.get(i).quantite + " exemplaires.");
         }
+        afficher("---------------");
     }
 }

@@ -48,20 +48,18 @@ public class Pret {
         }
      */
         try {
-            abotrouve = true;
-            if (!Abonne.abonnes.contains(aboPret)) {
-                abotrouve = false;
-                throw new IllegalArgumentException("Nom inconnu dans la base de données.");
-            }
-            //ON RECUPERE L'ID DE L'ABONNE
-            if (abotrouve) {
-                for (int i = 0; i < abonnes.size(); i++) {
-                    if (aboPret.equalsIgnoreCase((abonnes.get(i).getPrenom())+" "+abonnes.get(i).getNom())) {
-                        idAbo = i;
-                        break;
-                    }
+            abotrouve = false;
+            for (int i =0; i<abonnes.size();i++) {
+                if ((abonnes.get(i).getPrenom()+" "+abonnes.get(i).getNom()).equalsIgnoreCase(aboPret)) {
+                    abotrouve = true;
+                    idAbo=i;
+                    break;
                 }
             }
+            if (!abotrouve){
+                throw new IllegalArgumentException("Nom inconnu dans la base de données.");
+            }
+
             this.aboPret = aboPret;
         } catch (Exception e){
             this.idAbo =-1;
@@ -101,8 +99,9 @@ public class Pret {
         }
      */
         try {
+            livdispo = false;
             for (int i = 0; i < livres.size(); i++) {
-                if (livrePret.equalsIgnoreCase(livres.get(i).titre)) {
+                if (livrePret.equalsIgnoreCase(livres.get(i).getTitre())) {
                     if (!(livres.get(i).quantite > 0)) {
                         throw new IllegalArgumentException("Ce titre n'est pas disponible actuellement.");
                     } else {
@@ -110,8 +109,9 @@ public class Pret {
                         livdispo = true;
                         break;
                     }
-                } else if (i==livres.size()-1) {
-                    throw new IllegalArgumentException("Titre inconnu dans la base de données.");
+                }
+            if (!livdispo) {
+                throw new IllegalArgumentException("Titre inconnu dans la base de données.");
                 }
             }
             this.livrePret = livrePret;
@@ -190,11 +190,7 @@ public class Pret {
         return this.finPret;
     }
 
-    static List<Pret> prets = new ArrayList<>();
-    static List<Integer> idAbos = new ArrayList<>();
-    static List<Integer> idLivres = new ArrayList<>();
-    static List<LocalDate> debuts = new ArrayList<>();
-    static List<LocalDate> fins = new ArrayList<>();
+    public static List<Pret> prets = new ArrayList<>();
     static List<String> tousPrets = new ArrayList<>();
 
     public Pret(String aboPret, String livrePret, String autPret, LocalDate debutPret, LocalDate finPret)
@@ -205,13 +201,7 @@ public class Pret {
         setFin(finPret);
         if (livdispo && abotrouve && !dateImpos) {
 
-            idAbos.add(getAboPret());
-            idLivres.add(getLivrePret());
             livres.get(idLivre).quantite-=1;
-            debuts.add(getDebut());
-            fins.add(getFin());
-
-            prets.add(new Pret (aboPret, livrePret, autPret, debutPret, finPret));
 
             tousPrets.add(livrePret + " de " + livres.get(idLivre).auteur + " a été emprunté le " + debutPret + " par " + aboPret
                     + " et devra être rendu le " + finPret);
@@ -224,6 +214,7 @@ public class Pret {
             afficher(prets.get(i).livrePret + " de " + prets.get(i).autPret + " a été emprunté le " + prets.get(i).debutPret
                     + " par " + prets.get(i).aboPret + " et devra être rendu le " + prets.get(i).finPret);
         }
+        afficher("---------------");
     }
 
 }
